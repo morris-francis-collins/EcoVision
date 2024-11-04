@@ -1,0 +1,8 @@
+Flask==2.3.3
+Flask-Session==0.4.0
+sqlite3==3.36.0
+numpy==1.24.3
+pandas==2.0.3
+torch==2.0.1
+openai==0.27.2
+Flask-Bcrypt==1.0.1

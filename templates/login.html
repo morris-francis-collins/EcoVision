@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}: Login{% endblock %}
+
+{% block content %}
+<div class = "backgroundimg">
+    <div class = "box">
+        <form class="login-form" action="login" method="post">
+            <h1 id="bigLogin"> Login</h1>
+            <div>
+                <input placeholder="Username" class="login-input" name="username" autocomplete="off">
+            </div>
+            <div>
+                <input placeholder="Password" type="password" class="login-input" name="password" autocomplete="off">
+            </div>            
+            <div>
+                <button type="submit" class="form-submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>  
+{% endblock %}

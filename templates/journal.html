@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}: Journal{% endblock %}
+
+{% block content %}
+    <div class="journal-page">
+        <div class="journal">
+                <h1> Journal</h1>
+                <div>
+                    <label for="answer1">{{ questions[0] }}</label>
+                    <input type="hidden" id="question1" name="question1" value="{{ questions[0] }}">
+                    <input type="text" id="answer1" name="question1" class="journal-input" placeholder="answer">
+                </div>
+                <div>
+                    <label for="answer2">{{ questions[1] }}</label>
+                    <input type="hidden" id="question2" name="question2" value="{{ questions[1] }}">
+                    <input type="text" id="answer2" name="question2" class="journal-input" placeholder="answer">
+                </div>
+                <div>
+                    <label for="answer3">{{ questions[2] }}</label>
+                    <input type="hidden" id="question3" name="question3" value="{{ questions[2] }}">
+                    <input type="text" id="answer3" name="question3" class="journal-input" placeholder="answer">
+                </div>
+                <div>
+                    <label for="journal">Write your extra thoughts here!</label>
+                    <input type="text" placeholder="Journal your thoughts here" class="journal-input" id="journal" name="journal" autocomplete="off">
+                </div>            
+                <div>
+                    <button class="form-submit" onclick="post_helper()">Submit</button>
+                </div>
+                <div class="feedback">
+                    <p id="feedback"></p>
+                </div>
+            <script>
+                function post_helper(){
+                    var q1 = document.getElementById("question1").value;
+                    var a1 = document.getElementById("answer1").value;
+                    var q2 = document.getElementById("question2").value;
+                    var a2 = document.getElementById("answer2").value;
+                    var q3 = document.getElementById("question3").value;
+                    var a3 = document.getElementById("answer3").value;
+                    var journal = document.getElementById("journal").value;
+                    post('/api/journal', {
+                        question1: q1, answer1: a1,
+                        question2: q2, answer2: a2,
+                        question3: q3, answer3: a3,
+                        journal: journal
+                    });
+                }
+                function post(path, params, method='post') {
+                    $.ajax({
+                        url: path,
+                        data: params,
+                        type: method,
+                        dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                            document.getElementById("feedback").innerHTML = data['response'];
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
+{% endblock %}

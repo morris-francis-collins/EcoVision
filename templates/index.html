@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="landing-page-background">
+    <div class="landing-container">
+        <h1 class="landing-title">Welcome to EcoVision!</h1>
+        <p class="landing-description">
+            Find your location's air quality index and help your community through volunteering opportunities.
+        </p>
+        <div class="landing-buttons">
+            <a href="{{ url_for('demographics_test') }}" class="cta-button">Your Location</a>
+            <a href="{{ url_for('about') }}" class="secondary-button">Learn More</a>
+        </div>
+    </div>
+</div>
+<div class="website-uses">
+    <h2 class="uses-title">Why Use EcoVision?</h2>
+    <div class="uses-container">
+        <div class="use-box">
+            <h3>Local Impact</h3>
+            <p>Volunteering opportunities empower people to support environmental health and strengthening community resilience.</p>
+        </div>
+        <div class="use-box">
+            <h3>Health Management</h3>
+            <p>Allows users to make informed choices about outdoor activities, protecting their health on high-pollution days.</p>
+        </div>
+        <div class="use-box">
+            <h3>Awareness & Engagement</h3>
+            <p>Fosters awareness and motivates users to contribute positively to their local environment.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

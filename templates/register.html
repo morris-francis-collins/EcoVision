@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}: Register{% endblock %}
+
+{% block content %}
+<div class = "boxRegister">
+    <form class="login-form2" action="register" method="post">
+        <h1>Register</h1> 
+        <div>
+            <input placeholder="Username" class="login-input2" name="username" autocomplete="off">
+        </div>
+        <div>
+            <input placeholder="Password" type="password" class="login-input2" name="password" autocomplete="off">
+        </div>            
+        <div>
+            <input placeholder="Confirm Password" type="password" class="login-input2" name="confirmation" autocomplete="off">
+        </div>
+        <div>
+            <button type="submit" class="form-submit">Register</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoVision{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
+</head>
+
+<body style="margin: 0">
+    <header>
+        <nav class="navbar">
+            <div>
+                <ul>
+                    <img src="{{ url_for('static', filename='logo.png') }}" class="logo" height="30"> <!--logo of the world-->
+                    <a href="{{ url_for('index') }}" class="navbar-link-left"><li>Home</li></a>
+                    <a href="{{ url_for('about') }}" class="navbar-link-left"><li>About Us</li></a>
+                    <a href="{{ url_for('demographics_test') }}" class="navbar-link-left"><li>Test Your Area</li></a>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    {% if not session.loggedin %}
+                        <a href="{{ url_for('login') }}" class="navbar-link-right"><li>Login</li></a>
+                        <a href="{{ url_for('register') }}" class="navbar-link-right"><li>Sign Up</li></a>
+                    {% else %}
+                        <a href="{{ url_for('profile') }}" class="navbar-link-right"><li>Profile</li></a>
+                        <a href="{{ url_for('logout') }}" class="navbar-link-right"><li>Logout</li></a>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+</header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+
+</html>

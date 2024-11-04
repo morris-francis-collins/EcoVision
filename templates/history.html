@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}: History{% endblock %}
+
+{% block content %}
+    <div class="history-page">
+        <h1>Journal History</h1>
+        {% for journal in journals %}
+            <div class="journal">
+                <h2>Journal Entry</h2>
+                <p>{{ journal[1] }}: </p>
+                <p>{{ journal[2] }}</p>
+                <p>{{ journal[3] }}: </p>
+                <p>{{ journal[4] }}</p>
+                <p>{{ journal[5] }}: </p>
+                <p>{{ journal[6] }}</p>
+                <p>Extra Thoughts: </p>
+                <p>{{ journal[7] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

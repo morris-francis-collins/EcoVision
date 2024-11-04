@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block title %}: Test Your Area{% endblock %}
+
+{% block content %}
+<form class="background-demographic" action="demographics_test" method="post">
+    <div class="form-collection">
+        <h1>Demographics Test</h1>
+        <p>Answer the following questions to help us understand your demographics.</p>
+        
+        <div class="rows">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="county">County</label>
+                <select class="form-control" id="countyDropdown" name="county">
+                    <!-- Counties of California -->
+                </select>
+            </div>
+        </div>
+        
+        <div class="rows">
+            <div class="form-group">
+                <label for="gender">Employment Status</label>
+                <select class="form-control" id="employ" name="employment">
+                    <option value="">Select Status</option>
+                    <option value="Employed">Employed</option>
+                    <option value="Unemployed">Unemployed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="income">Income</label>
+                    <input type="number" class="form-control" id="income" name="income" required>
+                </div>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="form-group">
+                <label for="education">Education Level</label>
+                <select class="form-control" id="education" name="education">
+                    <option value="">Select Education Level</option>
+                    <option value="No high-school">No High School</option>
+                    <option value="high-school">High School</option>
+                    <option value="bachelor-degree">Bachelor's Degree</option>
+                    <option value="graduate-degree">Graduate Degree</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ethnicity">Ethnicity</label>
+                <select class="form-control" id="ethnicity" name="ethnicity">
+                    <option value="">Select Ethnicity</option>
+                    <option value="white">White</option>
+                    <option value="hispanic">Hispanic or Latino</option>
+                    <option value="black">African American</option>
+                    <option value="asian">Asian</option>
+                    <option value="native-american">Native American</option>
+                    <option value="pacific-islander">Pacific Islander</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not-to-say">Prefer Not to Say</option>
+                </select>
+            </div>    
+        </div>
+
+        <button type="submit" class="button">Submit</button>
+    </div>
+</form>
+
+
+    <script>
+        const counties = [
+            "Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colusa", "Contra Costa", "Del Norte",
+            "El Dorado", "Fresno", "Glenn", "Humboldt", "Imperial", "Inyo", "Kern", "Kings", "Lake",
+            "Lassen", "Los Angeles", "Madera", "Marin", "Mariposa", "Mendocino", "Merced", "Modoc",
+            "Mono", "Monterey", "Napa", "Nevada", "Orange", "Placer", "Plumas", "Riverside", "Sacramento",
+            "San Benito", "San Bernardino", "San Diego", "San Francisco", "San Joaquin", "San Luis Obispo",
+            "San Mateo", "Santa Barbara", "Santa Clara", "Santa Cruz", "Shasta", "Sierra", "Siskiyou",
+            "Solano", "Sonoma", "Stanislaus", "Sutter", "Tehama", "Trinity", "Tulare", "Tuolumne",
+            "Ventura", "Yolo", "Yuba"
+        ];
+
+        const countyDropdown = document.getElementById("countyDropdown");
+        const countySearch = document.getElementById("countySearch");
+
+        // Populate dropdown with counties
+        function populateDropdown() {
+            countyDropdown.innerHTML = ""; // Clear existing options
+
+            counties.forEach(county => {
+                const option = document.createElement("option");
+                option.value = county;
+                option.className = "county-option"
+                option.textContent = county;
+                countyDropdown.appendChild(option);
+            });
+        }
+        populateDropdown();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

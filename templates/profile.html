@@ -1,0 +1,195 @@
+{% extends "layout.html" %}
+
+{% block title %}: About{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("static/wp7035502.webp");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        background-color: #f7f9fc;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        margin-bottom: 10%;
+        padding: 20px;
+    }
+    h1, h2 {
+        font-size: 24px;
+        color: #333;
+    }
+    .section {
+        background-color: #ffffffea;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .section-header .number {
+        width: 30px;
+        height: 30px;
+        background-color: #4caf50;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-right: 10px;
+        font-weight: bold;
+    }
+    .progress-bar-container {
+        margin-top: 10px;
+    }
+    .progress-bar-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .progress-bar {
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    .progress {
+        height: 100%;
+        background-color: #4caf50;
+        width: 50%; /* Placeholder width */
+    }
+    .description {
+        font-size: 14px;
+        color: #666;
+        margin-top: 15px;
+    }
+    .email-section {
+        text-align: center;
+        margin-top: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+    }
+    .email-section input[type="email"] {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 80%;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+    .email-section button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+    .email-section button:hover {
+        background-color: #45a049;
+    }
+    #map { height: 500px; }
+</style>
+
+<div class="container">
+    <!-- Section 1: Environmental Risk Factors -->
+    <div class="section">
+        <div class="section-header">
+            <div class="number">1</div>
+            <h2>Environmental Risk Factors (In 30 Years)</h2>
+        </div>
+
+        <!-- Risk Factor Progress Bars -->
+        <div class="progress-bar-container">
+            {% for i in range(0, 7) %}
+                <div class="progress-bar-label">{{ categories[i] }}: <span>{{ numbers[i] }}%</span></div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: {{ numbers[i] }}%;"></div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Description 
+        <p class="description">Your environmental risk assessment considers various factors such as air pollution, water quality, noise pollution, and heat exposure. Each of these factors contributes to your overall environmental risk score, providing insights into areas of concern and potential impact on health and well-being.</p>-->
+    </div>
+    
+    <!-- Additional Explanation Section -->
+    <div class="section">
+        <div class="section-header">
+            <div class="number">2</div>
+            <h2>Additional Insights</h2>
+        </div>
+        <p class="description">
+            {% for paragraph in advice %}
+                {{ paragraph }}<br><br>
+            {% endfor %}
+            
+
+        </p>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <div class="number">3</div>
+            <h2>Volunteer Opportunities</h2>
+        </div>
+        <div id="map">
+
+        </div>
+    </div>
+
+    <!-- Section 2: Email Copy of Results -->
+    <div class="section email-section">
+        <h2>Would you like an email copy of your results?</h2>
+        <input type="email" placeholder="your@email.com">
+        <button>Send Results</button>
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView([37.5, -120.09], 6);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var bounds = L.latLngBounds([]);
+
+    {% for coord in volunteering %}
+        var coordsy = {{ coord["coords"][0] }};
+        var coordsx = {{ coord["coords"][1] }};
+        console.log(coordsx, coordsy);
+        var marker = L.marker([coordsx, coordsy]).addTo(map);
+        marker.bindPopup("<a href='{{ 'http://' + coord['website'] if 'http' not in coord['website'] else coord['website'] }}' target='_blank'>{{ coord['website'] }}</a><br>{{ coord['description'] }}");
+        
+        // Extend bounds to include this marker's coordinates
+        bounds.extend([coordsx, coordsy]);
+    {% endfor %}
+
+    // Fit the map to the bounds of all markers
+    map.fitBounds(bounds);
+
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick);
+</script>
+
+{% endblock %}
